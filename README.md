@@ -160,6 +160,66 @@ O **Dependabot** é uma ferramenta integrada ao GitHub que monitora as dependên
 
 > O Dependabot agora irá monitorar as dependências do seu projeto e abrir Pull Requests automaticamente quando encontrar atualizações.
 
+# Como Configurar o Dependabot para Verificar Dependências Automaticamente
+
+O **Dependabot** pode ser configurado para monitorar e atualizar automaticamente as dependências do seu projeto em intervalos definidos por você. Veja abaixo como fazer isso usando o exemplo de configuração fornecido.
+
+### 1. Crie o arquivo de configuração do Dependabot
+
+1. No seu repositório, clique em **Add file > Create new file**.
+2. No campo de nome do arquivo, digite: `.github/dependabot.yml`
+
+3. Cole o conteúdo abaixo no editor:
+
+ ```
+ version: 2
+ updates:
+   - package-ecosystem: "npm" # Veja a documentação para outros valores possíveis
+     directory: "/"           # Localização do package.json
+     schedule:
+       interval: "yearly"     # Pode ser "daily", "weekly" ou "monthly"
+ ```
+
+4. Desça até o final da página, adicione uma mensagem de commit e clique em **Commit new file**.
+
+### 2. Personalize o Intervalo de Atualização
+
+- **interval:** define com que frequência o Dependabot irá checar por novas versões das dependências.
+- `"daily"`: diariamente
+- `"weekly"`: semanalmente
+- `"monthly"`: mensalmente
+- `"yearly"`: anualmente (como no exemplo acima)
+
+Você pode ajustar o valor conforme a necessidade do seu projeto.
+
+### 3. Como Funciona
+
+- O Dependabot irá monitorar o arquivo `package.json` (ou outro manifest indicado) na raiz do projeto.
+- Quando encontrar atualizações disponíveis, ele abrirá automaticamente um Pull Request para sugerir a atualização da dependência.
+- Você pode revisar, testar e aprovar a atualização diretamente pelo GitHub.
+
+### 4. Exemplo de Configuração Completa
+
+```
+.github/dependabot.yml
+version: 2
+updates:
+
+package-ecosystem: "npm"
+directory: "/"
+schedule:
+interval: "yearly"
+
+```
+
+> Para mais opções de configuração, consulte a [documentação oficial do Dependabot](https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file).
+
+---
+
+Com essa configuração, o Dependabot irá verificar automaticamente as dependências do seu projeto conforme o intervalo definido, ajudando a manter seu projeto seguro e atualizado.
+
+
+
 ---
 
 ## Como Exigir Pull Request para Alterações na Main
@@ -195,3 +255,4 @@ Para garantir que nenhum código seja inserido diretamente na branch `main`, é 
 - **Branch Protection Rule** — Exige Pull Request para qualquer alteração na `main`.
 
 Esses passos ajudam a manter seu projeto mais seguro e organizado, automatizando atualizações e garantindo revisão de código antes de qualquer merge na branch principal.
+
