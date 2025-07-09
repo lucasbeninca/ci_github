@@ -133,3 +133,65 @@ Para mais detalhes sobre personalização de workflows, consulte a [documentaç�
 Agora, toda vez que um pull request for aberto para a branch `main`, os testes serão executados automaticamente, ajudando a garantir a qualidade do seu projeto.
 
 **Dica:** Todos esses passos podem ser feitos diretamente pelo GitHub Web, sem necessidade de comandos no terminal.
+
+
+# Como Ativar o Dependabot em um Repositório
+
+O **Dependabot** é uma ferramenta integrada ao GitHub que monitora as dependências do seu projeto e abre Pull Requests automáticos para atualizar versões vulneráveis ou desatualizadas.
+
+
+### 1. Adicione o arquivo de configuração do Dependabot
+
+1. No seu repositório, clique em **Add file > Create new file**.
+2. No campo de nome do arquivo, digite: `.github/dependabot.yml`
+
+3. Cole o exemplo de configuração abaixo para monitorar dependências do Node.js (ajuste conforme sua stack):
+
+ ```
+ version: 2
+ updates:
+   - package-ecosystem: "npm"
+     directory: "/"
+     schedule:
+       interval: "weekly"
+ ```
+
+4. Desça até o final da página, adicione uma mensagem de commit e clique em **Commit new file**.
+
+> O Dependabot agora irá monitorar as dependências do seu projeto e abrir Pull Requests automaticamente quando encontrar atualizações.
+
+---
+
+## Como Exigir Pull Request para Alterações na Main
+
+Para garantir que nenhum código seja inserido diretamente na branch `main`, é necessário configurar uma **Branch Protection Rule**.
+
+### 1. Acesse as configurações do repositório
+
+1. No repositório, clique em **Settings**.
+2. No menu lateral, clique em **Branches**.
+
+### 2. Crie uma regra de proteção para a branch `main`
+
+1. Em **Branch protection rules**, clique em **Add rule**.
+2. No campo **Branch name pattern**, digite: `main`
+
+3. Marque a opção:
+- **Require a pull request before merging** (Exigir um pull request antes de mesclar)
+
+4. (Opcional) Ative outras opções para reforçar a segurança, como:
+- **Require status checks to pass before merging**
+- **Require review from Code Owners**
+
+5. Clique em **Create** ou **Save changes**.
+
+> A partir de agora, não será possível fazer push direto na `main`. Toda alteração deverá ser feita via Pull Request.
+
+---
+
+## Resumo dos Arquivos e Configurações
+
+- `.github/dependabot.yml` — Ativa o Dependabot para monitorar dependências.
+- **Branch Protection Rule** — Exige Pull Request para qualquer alteração na `main`.
+
+Esses passos ajudam a manter seu projeto mais seguro e organizado, automatizando atualizações e garantindo revisão de código antes de qualquer merge na branch principal.
